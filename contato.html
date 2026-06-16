@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contato - Alexandre Schwartsman</title>
+  <meta name="description" content="Contato institucional P&S." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-active="contato.html">
+  <div data-slot="header"></div>
+
+  <main class="page">
+    <section class="block first">
+      <p class="kicker" data-pt="Contato" data-en="Contact">Contato</p>
+      <h1>Pinotti & Schwartsman Associados</h1>
+      <p><span data-pt="Consultorias econômicas através da" data-en="Economic consulting through">Consultorias econômicas através da</span> <a href="https://psassociados.com" target="_blank" rel="noopener">Pinotti &amp; Schwartsman Associados</a>.</p>
+    </section>
+
+    <section class="block contact-note">
+      <h2 data-pt="Email" data-en="Email">Email</h2>
+      <p><a href="mailto:contato@psassociados.com">contato@psassociados.com</a></p>
+    </section>
+
+    <section class="block">
+      <form class="form" data-contact-form>
+        <label>Nome <input name="nome" required autocomplete="name" /></label>
+        <label>Empresa <input name="empresa" autocomplete="organization" /></label>
+        <label>Email <input name="email" type="email" required autocomplete="email" /></label>
+        <label>Assunto
+          <select name="assunto">
+            <option>Relatórios</option>
+            <option>Reunião</option>
+            <option>Palestra</option>
+            <option>Outro</option>
+          </select>
+        </label>
+        <label class="full">Mensagem <textarea name="mensagem" rows="5"></textarea></label>
+        <button class="btn" type="submit">Preparar email</button>
+        <p class="form-status" hidden data-form-status>Seu aplicativo de email será aberto.</p>
+      </form>
+    </section>
+  </main>
+
+  <div data-slot="footer"></div>
+  <script src="site.js"></script>
+</body>
+</html>
