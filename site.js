@@ -35,14 +35,17 @@
             <span class="brand-name">Alexandre Schwartsman</span>
             <span class="brand-sub" data-pt="Economista" data-en="Economist">Economista</span>
           </a>
-          <nav class="nav">${nav}</nav>
-          <div class="lang-switch" role="group" aria-label="Language">
-            <button type="button" data-lang="pt">PT</button>
-            <button type="button" data-lang="en">EN</button>
-          </div>
-          <div class="ps-where">
-            <span data-pt="Onde achar:" data-en="Find him:">Onde achar:</span>
-            <a class="ps-link" href="https://psassociados.com" target="_blank" rel="noopener" aria-label="Pinotti & Schwartsman Associados">P&amp;S</a>
+          <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">☰</button>
+          <div class="nav-panel" id="site-nav">
+            <nav class="nav">${nav}</nav>
+            <div class="lang-switch" role="group" aria-label="Language">
+              <button type="button" data-lang="pt">PT</button>
+              <button type="button" data-lang="en">EN</button>
+            </div>
+            <div class="ps-where">
+              <span data-pt="Onde achar:" data-en="Find him:">Onde achar:</span>
+              <a class="ps-link" href="https://psassociados.com" target="_blank" rel="noopener" aria-label="Pinotti & Schwartsman Associados">P&amp;S</a>
+            </div>
           </div>
         </div>
       </header>
@@ -118,10 +121,45 @@
     });
   }
 
+  function initMobileMenu() {
+    const button = document.querySelector(".mobile-menu-toggle");
+    const panel = document.querySelector(".nav-panel");
+    const nav = document.querySelector(".nav");
+    if (!button || !panel || !nav) return;
+    button.addEventListener("click", () => {
+      const open = panel.classList.toggle("open");
+      button.setAttribute("aria-expanded", open ? "true" : "false");
+      button.textContent = open ? "×" : "☰";
+      document.body.classList.toggle("menu-open", open);
+    });
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        panel.classList.remove("open");
+        button.setAttribute("aria-expanded", "false");
+        button.textContent = "☰";
+        document.body.classList.remove("menu-open");
+      });
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      panel.classList.remove("open");
+      button.setAttribute("aria-expanded", "false");
+      button.textContent = "☰";
+      document.body.classList.remove("menu-open");
+    });
+  }
+
+  function syncViewportClass() {
+    document.body.classList.toggle("is-mobile", window.innerWidth <= 720);
+  }
+
   document.querySelector("[data-slot=header]").outerHTML = buildHeader();
   document.querySelector("[data-slot=footer]").outerHTML = buildFooter();
+  syncViewportClass();
+  window.addEventListener("resize", syncViewportClass);
   initContactForm();
   initPendingLinks();
   initLangSwitch();
+  initMobileMenu();
   applyLang();
 })();
